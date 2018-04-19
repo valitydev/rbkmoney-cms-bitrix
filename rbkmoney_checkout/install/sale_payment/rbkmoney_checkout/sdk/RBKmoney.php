@@ -49,6 +49,7 @@ class RBKmoney
     const INVOICE_METADATA = 'metadata';
     const INVOICE_STATUS = 'status';
     const INVOICE_AMOUNT = 'amount';
+    const INVOICE_CURRENCY = 'currency';
 
     const ORDER_ID = 'order_id';
 
@@ -310,7 +311,7 @@ class RBKmoney
     {
         return array(
             'cms' => 'bitrix',
-            'cms_version' => '17.5.7',
+            'cms_version' => ﻿SM_VERSION,
             'module' => 'rbkmoney_checkout',
             'order_id' => $order_id,
         );
