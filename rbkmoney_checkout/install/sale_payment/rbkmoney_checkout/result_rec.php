@@ -78,20 +78,26 @@ if ($arOrder["PAYED"] == "Y") {
     RBKmoneyLogger::loggerErrorWithOutput($item_id, $logs, $logs['error']['message']);
 }
 
+
+$arFields = array(
+    "PS_STATUS_CODE" => $data[RBKmoney::INVOICE][RBKmoney::INVOICE_STATUS],
+    "PS_STATUS_DESCRIPTION" => $content,
+    "PS_STATUS_MESSAGE" => 'ok',
+    "PS_SUM" => $data[RBKmoney::INVOICE][RBKmoney::INVOICE_AMOUNT],
+    "PS_CURRENCY" => $data[RBKmoney::INVOICE][RBKmoney::INVOICE_CURRENCY],
+    "PS_RESPONSE_DATE" => Date(CDatabase::DateFormatToPHP(CLang::GetDateFormat("FULL", LANG))),
+);
+
 if ($arOrder["PAYED"] != "Y" && $data[RBKmoney::INVOICE][RBKmoney::INVOICE_STATUS] == "paid") {
     $logs['order_payment'] = "Order paid";
+    $arFields['PS_STATUS'] = "Y";
     CSaleOrder::PayOrder($arOrder["ID"], "Y");
 }
 
-$arFields = array(
-    "PS_STATUS" => "Y",
-    "PS_STATUS_CODE" => $data[RBKmoney::INVOICE_STATUS],
-    "PS_STATUS_DESCRIPTION" => $content,
-    "PS_STATUS_MESSAGE" => 'ok',
-    "PS_SUM" => $data[RBKmoney::AMOUNT],
-    "PS_CURRENCY" => $data[RBKmoney::CURRENCY],
-    "PS_RESPONSE_DATE" => Date(CDatabase::DateFormatToPHP(CLang::GetDateFormat("FULL", LANG))),
-);
+if ($arOrder["PAYED"] != "Y" && $data[RBKmoney::INVOICE][RBKmoney::INVOICE_STATUS] == "cancelled") {
+    $logs['order_payment'] = "Order cancelled";
+    $arFields['PS_STATUS'] = "N";
+}
 
 CSaleOrder::Update($arOrder["ID"], $arFields);
 
