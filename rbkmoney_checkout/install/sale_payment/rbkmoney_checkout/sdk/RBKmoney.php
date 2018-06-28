@@ -53,7 +53,7 @@ class RBKmoney
 
     const ORDER_ID = 'order_id';
 
-    private $api_url = 'https://api.rbk.money/v1/';
+    private $api_url = 'https://api.rbk.money/v2/';
 
     private $merchant_private_key = '';
     private $shop_id = '';

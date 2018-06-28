@@ -83,7 +83,7 @@ $arFields = array(
     "PS_STATUS_CODE" => $data[RBKmoney::INVOICE][RBKmoney::INVOICE_STATUS],
     "PS_STATUS_DESCRIPTION" => $content,
     "PS_STATUS_MESSAGE" => 'ok',
-    "PS_SUM" => $data[RBKmoney::INVOICE][RBKmoney::INVOICE_AMOUNT],
+    "PS_SUM" => $data[RBKmoney::INVOICE][RBKmoney::INVOICE_AMOUNT] / 100,
     "PS_CURRENCY" => $data[RBKmoney::INVOICE][RBKmoney::INVOICE_CURRENCY],
     "PS_RESPONSE_DATE" => Date(CDatabase::DateFormatToPHP(CLang::GetDateFormat("FULL", LANG))),
 );
